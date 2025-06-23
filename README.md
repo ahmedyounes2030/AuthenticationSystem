@@ -1,7 +1,7 @@
 
 # AuthenticationSystem
 
-![JWT Logo]([https://raw.githubusercontent.com/auth0/blog/master/assets/jwt/jwt-logo.svg](https://www.google.com/url?sa=i&url=https%3A%2F%2Fjwt.io%2F&psig=AOvVaw3-QTnjiqsyRXslQpY5BfT6&ust=1750806120818000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCPDonZzTiI4DFQAAAAAdAAAAABAE)
+![JWT Logo]([https://raw.githubusercontent.com/auth0/blog/master/assets/jwt/jwt-logo.svg](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqtgOAt7WfhErEvoSt2cfykiJQC4cf57V1rg&s))
 ![Authentication & Security](https://cdn-icons-png.flaticon.com/512/3064/3064197.png)
 
 > **Built by Ahmed Saleh Ghaithan**  
