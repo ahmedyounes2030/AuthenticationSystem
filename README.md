@@ -1,7 +1,7 @@
 
 # AuthenticationSystem
 
-![JWT Logo](https://raw.githubusercontent.com/auth0/blog/master/assets/jwt/jwt-logo.svg)
+![JWT Logo]([https://raw.githubusercontent.com/auth0/blog/master/assets/jwt/jwt-logo.svg](https://www.google.com/url?sa=i&url=https%3A%2F%2Fjwt.io%2F&psig=AOvVaw3-QTnjiqsyRXslQpY5BfT6&ust=1750806120818000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCPDonZzTiI4DFQAAAAAdAAAAABAE)
 ![Authentication & Security](https://cdn-icons-png.flaticon.com/512/3064/3064197.png)
 
 > **Built by Ahmed Saleh Ghaithan**  
@@ -178,20 +178,11 @@ Verification is done with constant-time equality checks.
 
 ---
 
-## 👨‍💻 About the Author
-
-**Ahmed Saleh Ghaithan**  
-- [LinkedIn](https://www.linkedin.com/in/your-profile)  
-- [Portfolio](https://your-portfolio-link.com)  
-- [Email](mailto:your@email.com)
-
----
 
 ## 🏁 Getting Started
 
 1. Clone repo
 2. Set JWT and DB config in `appsettings.json`
-3. Run with `dotnet run` from the Presentation project
-4. Explore endpoints via Swagger UI
-
-[Mermaid](https://mermaid.js.org/)._
+3. Open package manager console and run `update-database`
+4. Run the system
+5. Explore endpoints via Swagger UI
