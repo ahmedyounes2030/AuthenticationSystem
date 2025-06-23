@@ -1,7 +1,7 @@
 
 # AuthenticationSystem
 
-![JWT Logo]([https://raw.githubusercontent.com/auth0/blog/master/assets/jwt/jwt-logo.svg](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqtgOAt7WfhErEvoSt2cfykiJQC4cf57V1rg&s))
+![JWT Logo](![JWT Logo](https://raw.githubusercontent.com/auth0/blog/master/assets/jwt/jwt-logo.svg))
 ![Authentication & Security](https://cdn-icons-png.flaticon.com/512/3064/3064197.png)
 
 > **Built by Ahmed Saleh Ghaithan**  
